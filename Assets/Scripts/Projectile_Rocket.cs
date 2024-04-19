@@ -25,15 +25,12 @@ public class Projectile_Rocket : MonoBehaviour
         //propel the projectile forward this tick
         propelProjectile(Time.fixedDeltaTime);
     }
-
-    void OnCollisionEnter(Collision collision)
+    //We expect this gameobject to be in the projectile layermask, so it will only trigger colision events when coliding with the level
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("collission occured");
-
-        //ensure the other collider is in the hit layermask
-        //bool inLayer = hitLayerMask == (hitLayerMask | (1 << collision.gameObject.layer));
-        //if (inLayer) { Hit?.Invoke(collision.gameObject); } //the projectile collider has hit something
+        Debug.Log("entered collider");
     }
+
     #endregion
 
 
