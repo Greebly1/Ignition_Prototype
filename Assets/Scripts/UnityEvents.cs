@@ -15,4 +15,11 @@ public class BoolEvent : UnityEvent<bool> { }
 [System.Serializable]
 public class Vec3Event : UnityEvent<Vector3> { }
 
+//Special event that can only be invoked between delays in time
+[System.Serializable] 
+public class WeaponEvent<T> : UnityEvent<T> {
+    public float delay = 1f;
+
+
+}
 
