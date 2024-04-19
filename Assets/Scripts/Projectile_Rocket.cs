@@ -10,8 +10,7 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 public class Projectile_Rocket : MonoBehaviour
 {
     [SerializeField] float projectileSpeed = 10f;
-    public LayerMask hitLayerMask = 0; //collider layers that this projectile can hit
-    public GameObjectEvent Hit = null; //unityEvent<gameobject>
+    public Vec3Event Hit = null; //unityEvent<Vector3>, passes the position of the colission
 
     Collider projectileCollider = null;
 
@@ -28,7 +27,9 @@ public class Projectile_Rocket : MonoBehaviour
     //We expect this gameobject to be in the projectile layermask, so it will only trigger colision events when coliding with the level
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("entered collider");
+        //Debug.Log("entered collider");
+        Vector3 colissionPosition = other.ClosestPoint(this.gameObject.transform.position);
+        Hit.Invoke(colissionPosition);
     }
 
     #endregion
