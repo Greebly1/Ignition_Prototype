@@ -9,7 +9,7 @@ namespace Fragsurf.Movement {
     /// Easily add a surfable character to the scene
     /// </summary>
     [AddComponentMenu ("Fragsurf/Surf Character")]
-    public class SurfCharacter : MonoBehaviour, ISurfControllable {
+    public class SurfCharacter : MonoBehaviour, ISurfControllable, ForceMoveable {
 
         public enum ColliderType {
             Capsule,
@@ -217,7 +217,7 @@ namespace Fragsurf.Movement {
         }
 
         private void Update () {
-
+            //Debug.Log(_moveData.velocity);
             _colliderObject.transform.rotation = Quaternion.identity;
 
 
@@ -377,6 +377,12 @@ namespace Fragsurf.Movement {
             newVelocity = Vector3.ClampMagnitude (newVelocity, Mathf.Max (moveData.velocity.magnitude, 30f));
             moveData.velocity = newVelocity;
 
+        }
+
+        public Vector3 AddForce(Vector3 force)
+        {
+            moveData.velocity += force;
+            return moveData.velocity;
         }
 
     }
