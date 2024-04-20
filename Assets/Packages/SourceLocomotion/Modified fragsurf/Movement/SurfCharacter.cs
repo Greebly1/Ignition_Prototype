@@ -381,6 +381,7 @@ namespace Fragsurf.Movement {
 
         public Vector3 AddForce(Vector3 force)
         {
+            _controller.jumping = true;
             moveData.velocity += force;
             return moveData.velocity;
         }

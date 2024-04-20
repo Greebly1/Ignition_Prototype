@@ -71,8 +71,9 @@ public class Force : ScriptableObject
         float distPercent = Mathf.Clamp(1 - (dist / radius), 0.0f, 1.0f);
         float finalForceStrength = forceFalloff.Evaluate(distPercent) * strength;
 
-        Vector3 forceDirection = (pointOnCollider - interactionData.forceOrigin).normalized; //calculate the direction of the force
+        Vector3 forceDirection = Vector3.Normalize(interactionData.receiverCollider.transform.position - interactionData.forceOrigin); //calculate the direction of the force
 
+        Debug.Log("Distance: " + dist + " DistPercent: " + distPercent + " final force str: " + finalForceStrength + " forceDir: " + forceDirection + "Final force: " + forceDirection * finalForceStrength);
         interactionData.receiver.AddForce(forceDirection * finalForceStrength); //tell the receiver to take that force
     }
 }
