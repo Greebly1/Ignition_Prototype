@@ -6,10 +6,11 @@ using UnityEngine;
 public class GameObjectPool : MonoBehaviour
 {
     [SerializeField] GameObject prefabTemplate;
-    List<GameObject> objectPool = new List<GameObject>();
+    List<GameObject> pool = new List<GameObject>();
     public int maxObjects = 10;
 
-    public static Dictionary<GameObject, GameObjectPool> pools = new Dictionary<GameObject, GameObjectPool>();
+    public static Dictionary<GameObject, GameObjectPool> allPools = new Dictionary<GameObject, GameObjectPool>();
+    public static List<GameObjectPool> pools = new List<GameObjectPool>();
 
     bool isLoadingObjects = false;
     Coroutine loadingCoroutine = null;
@@ -20,12 +21,12 @@ public class GameObjectPool : MonoBehaviour
         {
             try
             {
-                return objectPool.First(obj => !obj.activeInHierarchy);
+                return pool.First(obj => !obj.activeInHierarchy);
             } catch
             {
                 Debug.LogWarning(this.name.ToString() + " gameobject pool does not have enough instances to fulfill requirements");
             }
-            return objectPool[0];
+            return pool[0];
             
         }
     } 
@@ -33,7 +34,7 @@ public class GameObjectPool : MonoBehaviour
     {
         get
         {
-            foreach (GameObject obj in objectPool)
+            foreach (GameObject obj in pool)
             {
                 if (obj.activeInHierarchy) { return false; }
             }
@@ -45,6 +46,7 @@ public class GameObjectPool : MonoBehaviour
         if (poolEmpty) { /* TODO: make functionality for increasing max capacity*/ }
 
         GameObject chosenObject = firstAvailableObject;
+        Debug.Log(chosenObject);
         chosenObject.SetActive(true);
         chosenObject.transform.position = spawnPosition;
         chosenObject.transform.rotation = spawnRotation;
@@ -57,9 +59,9 @@ public class GameObjectPool : MonoBehaviour
     private void Awake()
     {
         //TODO: add a check that deletes this gameobject if the prefab template itself contains an object pool
-        if (pools.TryAdd(prefabTemplate, this))
+        if (allPools.TryAdd(prefabTemplate, this))
         {
-
+            pools.Add(this);
         } else
         {
             Debug.LogError("An object pool tried to duplicate an existing object pool");
@@ -73,7 +75,7 @@ public class GameObjectPool : MonoBehaviour
 
     private void OnDestroy()
     {
-        pools.Remove(prefabTemplate);
+        allPools.Remove(prefabTemplate);
     }
     #endregion
 
@@ -82,16 +84,38 @@ public class GameObjectPool : MonoBehaviour
     {
         isLoadingObjects = true;
 
-        while (objectPool.Count < maxObjects)
+        while (pool.Count < maxObjects)
         {
-            objectPool.Add(
-                Instantiate(prefabTemplate, Vector3.zero, Quaternion.identity)
+            pool.Add(
+                Instantiate(prefabTemplate, this.transform)
                 );
-            objectPool.Last().SetActive(false);
+            pool.Last().SetActive(false);
 
             yield return null;
         }
 
         isLoadingObjects = false;
+    }
+
+
+    /// <summary>
+    /// This does not work
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns>meant to return if a given object is part of an object pool</returns>
+    public static bool IsInPool(GameObject obj)
+    {
+        foreach (GameObjectPool currentObjectPool in pools)
+        {
+            foreach(GameObject currentPoolObject in currentObjectPool.pool)
+            {
+                if(currentPoolObject == obj)
+                {
+                    return true; //early out
+                }
+            }
+        }
+
+        return false;
     }
 }
