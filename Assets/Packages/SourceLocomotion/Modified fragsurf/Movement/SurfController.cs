@@ -7,7 +7,7 @@ namespace Fragsurf.Movement {
         ///// Fields /////
 
         [HideInInspector] public Transform playerTransform;
-        private ISurfControllable _surfer;
+        public ISurfControllable _surfer;
         private MovementConfig _config;
         private float _deltaTime;
 
@@ -423,6 +423,8 @@ namespace Fragsurf.Movement {
 
         }
 
+        
+
         private void ApplyFriction (float t, bool yAffected, bool grounded) {
 
             // Initialise variables
@@ -568,7 +570,7 @@ namespace Fragsurf.Movement {
             if (obj != null) {
 
                 _surfer.groundObject = obj;
-                _surfer.moveData.velocity.y = 0;
+                //_surfer.moveData.velocity.y = 0;
 
             } else
                 _surfer.groundObject = null;

@@ -41,7 +41,7 @@ public class Projectile_Rocket : MonoBehaviour
     /// <param name="deltaTime">Amount of time projectile has moved</param>
     void propelProjectile(float deltaTime)
     {
-        Vector3 deltaPosition = (projectileSpeed * Vector3.forward ) * deltaTime;
+        Vector3 deltaPosition = (projectileSpeed * this.gameObject.transform.forward ) * deltaTime;
         transform.position += deltaPosition;
     }
 
