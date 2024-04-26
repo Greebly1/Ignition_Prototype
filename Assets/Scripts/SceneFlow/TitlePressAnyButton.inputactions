@@ -1,0 +1,34 @@
+{
+    "name": "TitlePressAnyButton",
+    "maps": [
+        {
+            "name": "TitleState",
+            "id": "b5a657f7-e20b-4532-b83a-daefc0f29d35",
+            "actions": [
+                {
+                    "name": "PressAny",
+                    "type": "Button",
+                    "id": "52be9571-fe5b-4437-b3a4-e0a87041f49d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3f550b9e-b662-44c5-93ef-0aaad20d71fd",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PressAny",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
