@@ -19,26 +19,6 @@ public class PlayerWeapon : MonoBehaviour
         }
     }
 
-    bool _isPrimaryFiring = false;
-    bool isPrimaryFiring
-    {
-        get { return _isPrimaryFiring; }
-        set {
-            if (_isPrimaryFiring != value)
-            {
-                //value changed event
-                if(value) //the player just pressed the button
-                {
-                    heldWeapon?.TryInitiatePrimaryAction();
-                } else //the player just released the button
-                {
-
-                }
-            }
-            _isPrimaryFiring = value; 
-        }
-    }
-
     #region Monobehavior Callbacks
     private void Start()
     {
@@ -54,11 +34,8 @@ public class PlayerWeapon : MonoBehaviour
     {
         if (Input.GetButton("Fire1"))
         {
-            isPrimaryFiring = true;
-        } else
-        {
-            isPrimaryFiring = false;
-        }
+            heldWeapon?.TryInitiatePrimaryAction();
+        } 
     }
     #endregion
 }
