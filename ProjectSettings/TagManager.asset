@@ -14,8 +14,8 @@ TagManager:
   - ProjectileHit
   - ProjectileAbsorb
   - Projectile
-  - 
-  - 
+  - PlayerTrigger
+  - Trigger
   - 
   - 
   - 
