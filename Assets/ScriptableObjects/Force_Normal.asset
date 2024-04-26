@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 9198f3a7e186d9243a58ea9962e1e5fc, type: 3}
   m_Name: Force_Normal
   m_EditorClassIdentifier: Assembly-CSharp::Force
   radius: 4
-  strength: 20
+  strength: 17
   forceFalloff:
     serializedVersion: 2
     m_Curve:
