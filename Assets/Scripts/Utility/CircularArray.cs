@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CircularArray<DataType>
 {
-    readonly static int ARRAYWIDTH = 10;
+    readonly static int ARRAYWIDTH = 100;
 
     DataType[] _DataArray = new DataType[ARRAYWIDTH];
     public DataType[] DataArray
@@ -124,7 +124,7 @@ public class CircularArray<DataType>
 
     public int MapIndexToArray(int index)
     { 
-        return index % numOfFilledDataSlots;
+        return index % ARRAYWIDTH;
     }
 
     public void LogSelf()
@@ -146,8 +146,8 @@ public class CircularArray<DataType>
 
 
 
-    public DataType DataAtCurrIndex(int offset = 0)
+    public DataType DataAtCurrIndex()
     {
-        return DataArray[currIndex + offset]; //using a non 0 offset is dangerous
+        return DataArray[MapIndexToArray(currIndex)];
     }
 }
