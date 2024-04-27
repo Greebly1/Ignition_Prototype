@@ -32,7 +32,7 @@ public class PlayerWeapon : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButton("Fire1") && !GameManager.Instance.IsPaused)
         {
             heldWeapon?.TryInitiatePrimaryAction();
         } 

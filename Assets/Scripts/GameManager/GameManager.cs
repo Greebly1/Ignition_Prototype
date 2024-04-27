@@ -48,7 +48,8 @@ public class GameManager : MonoBehaviour
     #endregion
 
     [SerializeField] SceneBindings sceneFlow; //this is used to set the 'static SceneBindings Scenes' from within the inspector
- 
+    public LevelManager CurrentLevel;
+
     #region Monobehavior Callbacks
     private void Awake()
     {
@@ -85,22 +86,30 @@ public class GameManager : MonoBehaviour
 
     public void LoadTitle()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        IsPaused = false;
         SceneManager.LoadScene(GetSceneByType(SceneType.Title).name);
     }
 
     public void LoadSandBox()
     {
+        IsPaused = false;
         SceneManager.LoadScene(GetSceneByType(SceneType.Sandbox).name);
     }
 
     public void LoadLevel(SceneData newLevel)
     {
+        IsPaused = false;
         SceneManager.LoadScene(newLevel.name);
     }
 
     #region MainMenu
     public void LoadMainMenu()
     {
+        IsPaused = false;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene(GetSceneByType(SceneType.MainMenu).name);
         //the main menu will itself, call additive loading and unloading of its menu scenes
         //The main menu is a finite state machine for loading menu scenes additively
@@ -125,9 +134,13 @@ public class GameManager : MonoBehaviour
         {
             case true: //paused
                 SceneManager.LoadSceneAsync(GetSceneByType(SceneType.PauseMenu).name, LoadSceneMode.Additive);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
                 break;
             case false: //unpaused
                 SceneManager.UnloadSceneAsync(GetSceneByType(SceneType.PauseMenu).name);
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
                 break;
         }
     }
