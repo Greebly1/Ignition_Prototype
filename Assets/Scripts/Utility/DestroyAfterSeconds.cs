@@ -60,7 +60,7 @@ public class DestroyAfterSeconds : MonoBehaviour
         //if it is in an object pool, simply disable it
         if (IsInObjectPool)
         {
-            Debug.Log("IAH$E");
+            //Debug.Log("Killing an object through destroyAfterSeconds");
             target.SetActive(false);
         } else
         {

@@ -10,7 +10,7 @@ public class SpawnSoundObjectPool : MonoBehaviour, SoundPlayer
     {
         if (GameObjectPool.allPools.ContainsKey(SoundPrefab))
         {
-            Debug.Log("baurger");
+            //Debug.Log("baurger");
             GameObjectPool.allPools[SoundPrefab].PoolInstantiate(transform.position, transform.rotation);
         } else
         {

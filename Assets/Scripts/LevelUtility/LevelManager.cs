@@ -6,6 +6,8 @@ using UnityEngine;
 /// <summary>
 /// Manages game flow within a level
 /// contains a timer, and keeps score
+/// 
+/// Also manages pausing, and reversing time
 /// </summary>
 public class LevelManager : MonoBehaviour
 {
@@ -50,82 +52,6 @@ public class LevelManager : MonoBehaviour
     public void GameOver()
     {
         Debug.Log("gameover");
-        Debug.Log(RankString(LevelScoreRanker.EvaluateScore(CalculateScore())) + "Rank");
+        Debug.Log(LevelScoreRanker.EvaluateScore(CalculateScore()).ToString() + "-Rank");
     }
-
-
-    public string RankString(Rank rank)
-    {
-        switch (rank)
-        {
-            case Rank.S: return "S";
-            case Rank.A: return "A";
-            case Rank.B: return "B";
-            case Rank.C: return "C";
-            case Rank.D: return "D";
-            case Rank.E: return "E";
-            case Rank.F: return "F";
-            default: return "F";
-        }
-    }
-}
-
-[System.Serializable]
-public class ScoreGates
-{
-    //object representing what scores give what rankings  
-    public int S = 700;   
-    public int A = 600;   
-    public int B = 500;   
-    public int C = 400;
-    public int D = 300;
-    public int E = 200;
-    public int F = 100;
-
-    //Some shorthand getters
-    public Dictionary<int, Rank> getRank
-    {
-        get
-        {
-            return new Dictionary<int, Rank> //this is just so I can retrieve a rank enum from the above int vars
-            {
-                { F, Rank.F },
-                { E, Rank.E },
-                { D, Rank.D },
-                { C, Rank.C },
-                { B, Rank.B },
-                { A, Rank.A },
-                { S, Rank.S }
-            };
-        }
-    }
-    public int[] gates {
-        get
-        {
-            int[] ints = { F, E, D, C, B, A, S };
-            return ints;
-        }
-    }
-
-    public Rank EvaluateScore(int score)
-    {
-        //start from S rank and go back to F rank
-        for (int index = gates.Length - 1; index >= 0; index--)
-        {
-            if (score >= gates[index]) { return getRank[gates[index]]; } //if the score is greater than it return that rank
-        }
-
-        return Rank.F; //the score is not even greater than F rank
-    }
-}
-
-public enum Rank
-{
-    S,
-    A,
-    B,
-    C,
-    D,
-    E,
-    F
 }

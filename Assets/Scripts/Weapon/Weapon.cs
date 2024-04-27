@@ -54,7 +54,7 @@ public class Weapon : MonoBehaviour
     void OnPrimaryAction()
     {
         primaryActionTimer = primaryActionCooldown; //reset the cooldown
-        Debug.Log("Primary action");
+        //Debug.Log("Primary action");
     }
     #endregion
 }
