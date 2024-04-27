@@ -9,7 +9,7 @@ public class PlayerSpawn : MonoBehaviour
 {
     [SerializeField] GameObject PlayerPrefab;
 
-    private void Awake()
+    private void Start()
     {
         GameManager.Instance.CurrentLevel.Player =
         Instantiate(PlayerPrefab, this.transform.position, this.transform.rotation);

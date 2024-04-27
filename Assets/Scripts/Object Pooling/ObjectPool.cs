@@ -82,6 +82,8 @@ public class GameObjectPool : MonoBehaviour
     //Instantiates 1 object each frame until the pool is filled
     IEnumerator FillPool()
     {
+        yield return null;
+
         isLoadingObjects = true;
 
         while (pool.Count < maxObjects)

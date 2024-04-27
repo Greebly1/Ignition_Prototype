@@ -8,7 +8,7 @@ public class WeaponActionProjectile : MonoBehaviour
     [SerializeField] Transform firePoint = null;
     GameObjectPool pool = null;
 
-    delegate void Spawn();
+    delegate GameObject Spawn();
     Spawn spawnMethod;
 
     private void Start()
@@ -27,16 +27,17 @@ public class WeaponActionProjectile : MonoBehaviour
 
     public void Initiate()
     {
-        spawnMethod.Invoke();
+        spawnMethod.Invoke().GetComponent<TimeTracker>().BeginTracking();
+
     }
 
-    void PoolInstance()
+    GameObject PoolInstance()
     {
-        pool.PoolInstantiate(firePoint.position, firePoint.rotation);
+        return pool.PoolInstantiate(firePoint.position, firePoint.rotation);
     }
 
-    void DefaultInstance()
+    GameObject DefaultInstance()
     {
-        Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+        return Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
     }
 }

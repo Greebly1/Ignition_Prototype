@@ -8,16 +8,48 @@ using UnityEngine;
 public abstract class TimeTracker : MonoBehaviour
 {
     public abstract ApplyableData GenerateTimeData();
+    public bool TrackWhenActive = false;
 
     private void OnEnable()
     {
-        Debug.Log("added time tracker");
-        GameManager.Instance.CurrentLevel.timeTrackers.Add(this);
+        if (TrackWhenActive)
+        {
+            StartCoroutine("ChangeTrackingNextFrame", true);
+        }
+        
     }
 
     private void OnDisable()
     {
-        Debug.Log("removed time tracker");
+        if ( TrackWhenActive)
+        {
+            EndTracking(); //TIL you cant use coroutines in ondisable, because this object will become null
+        }
+        
+    }
+
+    public void BeginTracking()
+    {
+        // Debug.Log("added time tracker");
+        GameManager.Instance.CurrentLevel.timeTrackers.Add(this);
+    }
+
+    public void EndTracking()
+    {
+        //Debug.Log("removed time tracker");
         GameManager.Instance.CurrentLevel.timeTrackers.Remove(this);
+    }
+
+    IEnumerator ChangeTrackingNextFrame(bool isTracking)//I need to do this BS because of race errors in awake
+    {
+        yield return null; //wait one frame
+
+        if (isTracking)
+        {
+            BeginTracking();
+        } else
+        {
+            EndTracking();
+        }
     }
 }
