@@ -30,12 +30,16 @@ public class GameManager : MonoBehaviour
         set { 
             if (_isPaused != value)
             { //code block only executes when new value is different
-                TogglePauseMenu(value);
+                if (syncPauseMenu)
+                {
+                    TogglePauseMenu(value);
+                }
 
                 _isPaused = value;
             } //code block skips if value is the same
         }
     }
+    bool syncPauseMenu = true;
     #endregion
 
     #region shorthand getters 
@@ -150,6 +154,22 @@ public class GameManager : MonoBehaviour
     public void GameOver(bool won) //TODO: turn parameter into GameOverData struct
     {
         //TODO, I think gameover will be called by a levelManager
+        syncPauseMenu = false;
+        IsPaused = true;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        Time.timeScale = 0;
+
+        SceneManager.LoadSceneAsync(GetSceneByType(SceneType.GameOver).name, LoadSceneMode.Additive);
+        
+    }
+
+    public void UnloadGameOverScreen()
+    {
+        IsPaused = false;
+        syncPauseMenu = true;
+        Time.timeScale = 1.0f;
+        SceneManager.UnloadSceneAsync(GetSceneByType(SceneType.GameOver).name);
     }
     #endregion
 }

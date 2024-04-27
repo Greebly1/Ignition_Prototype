@@ -21,7 +21,13 @@ public class LevelManager : MonoBehaviour
     [HideInInspector] public GameObject Player;
 
     [SerializeField] int MaxTimeLimit = 1000;
-    [SerializeField] ScoreGates LevelScoreRanker;
+    [SerializeField] public ScoreGates LevelScoreRanker;
+    bool _playerWon = false;
+    public bool playerwon
+    {
+        get { return _playerWon; }
+        private set { _playerWon = value; }
+    }
 
     public UltEvent<int> remainingTimeChanged;
     float _timeRemaining = 1000f;
@@ -34,6 +40,14 @@ public class LevelManager : MonoBehaviour
                 remainingTimeChanged.Invoke((int)value);
             }
             _timeRemaining = value; 
+        }
+    }
+
+    public float TimeInLevel
+    {
+        get
+        {
+            return MaxTimeLimit - timeRemaining;
         }
     }
 
@@ -119,6 +133,7 @@ public class LevelManager : MonoBehaviour
     {
         Debug.Log("gameover");
         Debug.Log(LevelScoreRanker.EvaluateScore(CalculateScore()).ToString() + "-Rank");
+        GameManager.Instance.GameOver(!HasLost());
     }
     #endregion
 
