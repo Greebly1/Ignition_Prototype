@@ -11,7 +11,6 @@ public class Projectile_Rocket : MonoBehaviour
 {
     [SerializeField] float projectileSpeed = 10f;
     public Vec3Event Hit = null; //unityEvent<Vector3>, passes the position of the colission
-
     Collider projectileCollider = null;
 
     #region monobehavior callbacks
@@ -27,6 +26,11 @@ public class Projectile_Rocket : MonoBehaviour
     //We expect this gameobject to be in the projectile layermask, so it will only trigger colision events when coliding with the level
     private void OnTriggerEnter(Collider other)
     {
+        if(other.gameObject.GetComponent<ProjectileAbsorb>() != null)
+        {
+            this.gameObject.SetActive(false);
+            return; //the projectile is not allowed to explode on this surface
+        }
         //Debug.Log("entered collider");
         Vector3 colissionPosition = other.ClosestPoint(this.gameObject.transform.position);
         Hit.Invoke(colissionPosition);
