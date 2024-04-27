@@ -11,6 +11,7 @@ public class PlayerSpawn : MonoBehaviour
 
     private void Awake()
     {
+        GameManager.Instance.CurrentLevel.Player =
         Instantiate(PlayerPrefab, this.transform.position, this.transform.rotation);
     }
 }

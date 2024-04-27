@@ -18,6 +18,8 @@ public class LevelManager : MonoBehaviour
     public float timeSavePadding = 0.05f; //how long between each time save
     float timeSaveTimer = 0.05f;
 
+    [HideInInspector] public GameObject Player;
+
     [SerializeField] int MaxTimeLimit = 1000;
     [SerializeField] ScoreGates LevelScoreRanker;
 
