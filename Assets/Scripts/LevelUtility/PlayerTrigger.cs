@@ -6,6 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class PlayerTrigger : MonoBehaviour
 {
+    [SerializeField] bool triggerOnce = false;
+    bool hasTriggered = false;
+
     Collider trigger;
 
     public UltEvent<GameObject> OnPlayerEntered;
@@ -18,6 +21,20 @@ public class PlayerTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        OnPlayerEntered.Invoke(other.gameObject);
+        if (triggerOnce)
+        {
+            if (!hasTriggered)
+            {
+                OnPlayerEntered.Invoke(other.gameObject);
+            }
+
+        } else
+        {
+            OnPlayerEntered.Invoke(other.gameObject);
+
+        }
+
+
+        hasTriggered = true;
     }
 }
