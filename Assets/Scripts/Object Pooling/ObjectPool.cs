@@ -46,7 +46,7 @@ public class GameObjectPool : MonoBehaviour
         if (poolEmpty) { /* TODO: make functionality for increasing max capacity*/ }
 
         GameObject chosenObject = firstAvailableObject;
-        Debug.Log(chosenObject);
+        //Debug.Log(chosenObject);
         chosenObject.SetActive(true);
         chosenObject.transform.position = spawnPosition;
         chosenObject.transform.rotation = spawnRotation;
