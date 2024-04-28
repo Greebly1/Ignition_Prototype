@@ -98,12 +98,14 @@ public class GameManager : MonoBehaviour
 
     public void LoadSandBox()
     {
+        syncPauseMenu = true;
         IsPaused = false;
         SceneManager.LoadScene(GetSceneByType(SceneType.Sandbox).name);
     }
 
     public void LoadLevel(SceneData newLevel)
     {
+        syncPauseMenu = true;
         IsPaused = false;
         SceneManager.LoadScene(newLevel.name);
     }

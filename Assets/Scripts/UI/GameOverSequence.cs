@@ -17,6 +17,7 @@ public class GameOverSequence : MonoBehaviour
     LevelManager currentLevel;
     private void Start()
     {
+        //Debug.Log("I am gere");
         currentLevel = GameManager.Instance.CurrentLevel;
 
         SetResultData();
@@ -49,6 +50,7 @@ public class GameOverSequence : MonoBehaviour
 
     public void OnRetry()
     {
+        
         currentLevel.RestartLevel();
         GameManager.Instance.UnloadGameOverScreen();
     }

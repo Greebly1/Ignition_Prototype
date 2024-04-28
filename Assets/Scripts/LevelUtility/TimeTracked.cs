@@ -37,7 +37,7 @@ public abstract class TimeTracker : MonoBehaviour
     public void EndTracking()
     {
         //Debug.Log("removed time tracker");
-        GameManager.Instance.CurrentLevel.timeTrackers.Remove(this);
+        GameManager.Instance.CurrentLevel?.timeTrackers?.Remove(this);
     }
 
     IEnumerator ChangeTrackingNextFrame(bool isTracking)//I need to do this BS because of race errors in awake

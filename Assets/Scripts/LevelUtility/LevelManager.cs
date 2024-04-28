@@ -55,18 +55,24 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         timeRemaining = MaxTimeLimit;
-        GameManager.Instance.CurrentLevel = this;
+        
     }
     private void Start()
     {
+        GameManager.Instance.CurrentLevel = this;
         //instead of finding objects by type, we have them add themself to the list
         //timeTrackers = FindObjectsByType<TimeTracker>(FindObjectsSortMode.None).ToList(); //get a list of everything that needs its data tracked
     }
 
+    bool lostAlready = false;
+
     private void Update()
     {
         timeRemaining -= Time.deltaTime; //TODO, make this work with time reversal
-        if (HasLost()) { GameOver(); } 
+        if (HasLost() && !lostAlready) { 
+            lostAlready = true;
+            GameOver(); 
+        } 
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
