@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Rendering.InspectorCurveEditor;
 /// <summary>
 /// The main menu works like a state machine
 /// Switching between different menu states [main, level select, options, etc]

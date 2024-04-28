@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CircularArray<DataType>
 {
-    readonly static int ARRAYWIDTH = 100;
+    readonly static int ARRAYWIDTH = 5;
 
     DataType[] _DataArray = new DataType[ARRAYWIDTH];
     public DataType[] DataArray
